@@ -21,7 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>  <!-- Page that is rendered, Method name inside controller, desired controller) -->
+                    <li>@Html.ActionLink("Current Subcriptions", "Index", "Subscriptions")</li>  <!-- Title, File name, desired path) -->
                     <li>@Html.ActionLink("Analytics", "Analytics", "Home")</li>
                     <li>@Html.ActionLink("History", "History", "Home")</li>
                 </ul>
@@ -33,7 +33,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Subscription Manager</p>
         </footer>
     </div>
 

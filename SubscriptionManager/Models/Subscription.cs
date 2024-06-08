@@ -14,7 +14,7 @@ namespace SubscriptionManager.Models
 
         public int amount { get; set; }
 
-        public DateTime length { get; set; }
+        public string length { get; set; }
 
         public DateTime startDate { get; set; }
 
