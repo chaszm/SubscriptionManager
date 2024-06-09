@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SubscriptionManager.Models
 {
@@ -12,13 +13,15 @@ namespace SubscriptionManager.Models
 
         public string logo { get; set; }
 
-        public int amount { get; set; }
+        public float amount { get; set; }
 
-        public string length { get; set; }
+        public int length { get; set; }
 
         public DateTime startDate { get; set; }
 
         public string status { get; set; }
+
+        public IEnumerable<SelectListItem> statusOptions { get; set; }
 
         public string siteLink { get; set; }
 

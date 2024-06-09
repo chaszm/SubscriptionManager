@@ -7,13 +7,13 @@ namespace SubscriptionManager.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class EmptyMigration : IMigrationMetadata
+    public sealed partial class newmigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(EmptyMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newmigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "202406081634012_EmptyMigration"; }
+            get { return "202406091504422_new migration"; }
         }
         
         string IMigrationMetadata.Source

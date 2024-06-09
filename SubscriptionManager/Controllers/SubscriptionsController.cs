@@ -39,12 +39,24 @@ namespace SubscriptionManager.Controllers
         // GET: Subscriptions/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new Subscription{
+
+                statusOptions = new List<SelectListItem>
+               {
+                    new SelectListItem { Value = "1", Text = "Active" },
+                    new SelectListItem { Value = "2", Text = "Cancelled" }
+               }
+
+
+         
+            
+            
+            
+           };
+            return View(model);
         }
 
-        // POST: Subscriptions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,name,logo,amount,length,startDate,status,siteLink")] Subscription subscription)
