@@ -21,6 +21,23 @@ namespace SubscriptionManager.Controllers
             return View(db.Subscriptions.ToList());
         }
 
+        public ActionResult Analytics()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult History()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+
+
+
         // GET: Subscriptions/Details/5
         public ActionResult Details(int? id)
         {
@@ -39,27 +56,56 @@ namespace SubscriptionManager.Controllers
         // GET: Subscriptions/Create
         public ActionResult Create()
         {
-            var model = new Subscription{
+            
+            var model = new Subscription {
+                
+                
+                amount = null,
+
 
                 statusOptions = new List<SelectListItem>
-               {
-                    new SelectListItem { Value = "1", Text = "Active" },
-                    new SelectListItem { Value = "2", Text = "Cancelled" }
-               }
+                {
+
+                    new SelectListItem { Value = "Active", Text = "Active", Selected = true },
+                    new SelectListItem { Value = "Cancelled", Text = "Cancelled" }
+                },
+
+                categories = new List<SelectListItem>
+                {
+                    new SelectListItem { Value = "", Selected = true, Disabled = true, Text = "Select an Option" },
+                    new SelectListItem { Value = "Entertainment", Text = "Entertainment" },
+                    new SelectListItem { Value = "Food Delivery/Meal Kits", Text = "Food Delivery/Meal Kits" },
+                    new SelectListItem { Value = "Health and Fitness", Text = "Health and Fitness" },
+                    new SelectListItem { Value = "Technologies", Text = "Technologies" },
+                    new SelectListItem { Value = "Other", Text = "Other" }
+                },
+
+                lengthOptions = new List<SelectListItem>
+                {
+
+                    new SelectListItem { Value = "", Selected = true, Disabled = true, Text = "Select an Option" },
+                    new SelectListItem { Value = "7 Days", Text = "7 Days" },
+                    new SelectListItem { Value = "15 Days", Text = "15 Days" },
+                    new SelectListItem { Value = "1 Month", Text = "1 Month" },
+                    new SelectListItem { Value = "2 Months", Text = "2 Months" },
+                    new SelectListItem { Value = "3 Months", Text = "3 Months" },
+                    new SelectListItem { Value = "4 Months", Text = "4 Months" },
+                    new SelectListItem { Value = "5 Months", Text = "5 Months" },
+                    new SelectListItem { Value = "6 Months", Text = "6 Months" },
+                    new SelectListItem { Value = "1 Year", Text = "1 Year" }
+                }
+
+              
 
 
-         
-            
-            
-            
-           };
+            };
             return View(model);
         }
 
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,name,logo,amount,length,startDate,status,siteLink")] Subscription subscription)
+        public ActionResult Create([Bind(Include = "Id,name,category,amount,length,startDate,status,siteLink")] Subscription subscription)
         {
             if (ModelState.IsValid)
             {
@@ -70,6 +116,10 @@ namespace SubscriptionManager.Controllers
 
             return View(subscription);
         }
+
+
+
+
 
         // GET: Subscriptions/Edit/5
         public ActionResult Edit(int? id)
@@ -86,12 +136,16 @@ namespace SubscriptionManager.Controllers
             return View(subscription);
         }
 
+
+
+
+
         // POST: Subscriptions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,logo,amount,length,startDate,status,siteLink")] Subscription subscription)
+        public ActionResult Edit([Bind(Include = "Id,name,category,amount,length,startDate,status,siteLink")] Subscription subscription)
         {
             if (ModelState.IsValid)
             {
@@ -127,6 +181,17 @@ namespace SubscriptionManager.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

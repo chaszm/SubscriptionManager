@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.logo)
+            @Html.DisplayNameFor(model => model.category)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.amount)
@@ -40,38 +40,43 @@
     </tr>
 
     @foreach (var item in Model)        //Displays each individual subscription (item) and their properties
-    {
-        <tr>
-            <td>
-                <!-- DisplayFor- generates html string for model object property) -->
+    {                                   // Change so that displayed based on category
+<tr>
+    <td>
+        <!-- DisplayFor- generates html string for model object property) -->
 
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.logo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.length)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.startDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.siteLink)
-            </td>
-            <td>
-                <!-- ActionLink- (Desired text, action method name) -->
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+        @Html.DisplayFor(modelItem => item.name)
+    </td>
+
+    <!-- dropdown with options  -->
+    <td>
+        @Html.DisplayFor(modelItem => item.category)
+    </td>
+
+    <td>
+        $
+        @Html.DisplayFor(modelItem => item.amount)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.length) 
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.startDate)
+    </td>
+    <td>        
+        @Html.DisplayFor(modelItem => item.status) 
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.siteLink)
+    </td>
+    <td>
+        <!-- ActionLink- (Desired text, action method name) -->
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
     }
 
 </table>

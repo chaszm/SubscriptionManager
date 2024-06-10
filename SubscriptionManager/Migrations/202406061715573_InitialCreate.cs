@@ -13,7 +13,7 @@ namespace SubscriptionManager.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         name = c.String(),
-                        logo = c.String(),
+                    category = c.String(),
                         amount = c.Int(nullable: false),
                         length = c.String(nullable: false),
                         startDate = c.DateTime(nullable: false),

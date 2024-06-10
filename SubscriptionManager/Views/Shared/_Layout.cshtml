@@ -17,13 +17,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Subscription Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Current Subcriptions", "Index", "Subscriptions", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Current Subcriptions", "Index", "Subscriptions")</li>  <!-- Title, File name, desired path) -->
-                    <li>@Html.ActionLink("Analytics", "Analytics", "Home")</li>
-                    <li>@Html.ActionLink("History", "History", "Home")</li>
+                    <li>@Html.ActionLink("Analytics", "Analytics", "Subscriptions")</li>
+                    <li>@Html.ActionLink("History", "History", "Subscriptions")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
