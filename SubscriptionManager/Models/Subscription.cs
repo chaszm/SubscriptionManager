@@ -22,7 +22,7 @@ namespace SubscriptionManager.Models
         public float? amount { get; set; }
 
 
-
+        [DataType(DataType.Date)]
         public DateTime startDate { get; set; } // MAKE SHOW CALANDER
 
 

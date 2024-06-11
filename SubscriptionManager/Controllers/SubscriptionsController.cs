@@ -16,11 +16,14 @@ namespace SubscriptionManager.Controllers
         private SubscriptionManagerContext db = new SubscriptionManagerContext();
 
         // GET: Subscriptions
+
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Subscriptions.ToList());
         }
 
+        [Authorize]
         public ActionResult Analytics()
         {
             ViewBag.Message = "Your application description page.";
@@ -28,6 +31,7 @@ namespace SubscriptionManager.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult History()
         {
             ViewBag.Message = "Your contact page.";
@@ -53,6 +57,8 @@ namespace SubscriptionManager.Controllers
             return View(subscription);
         }
 
+
+        [Authorize]
         // GET: Subscriptions/Create
         public ActionResult Create()
         {
@@ -95,14 +101,14 @@ namespace SubscriptionManager.Controllers
                     new SelectListItem { Value = "1 Year", Text = "1 Year" }
                 }
 
-              
+             
 
 
             };
             return View(model);
         }
 
-        
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,name,category,amount,length,startDate,status,siteLink")] Subscription subscription)
@@ -120,7 +126,7 @@ namespace SubscriptionManager.Controllers
 
 
 
-
+        [Authorize]
         // GET: Subscriptions/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -143,6 +149,7 @@ namespace SubscriptionManager.Controllers
         // POST: Subscriptions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,name,category,amount,length,startDate,status,siteLink")] Subscription subscription)
@@ -156,6 +163,8 @@ namespace SubscriptionManager.Controllers
             return View(subscription);
         }
 
+
+        [Authorize]
         // GET: Subscriptions/Delete/5
         public ActionResult Delete(int? id)
         {
