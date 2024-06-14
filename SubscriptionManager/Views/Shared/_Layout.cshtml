@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body style="background-color: #adb5bd ">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -17,11 +17,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Current Subcriptions", "Index", "Subscriptions", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Subscription Manager", "Index", "Subscriptions", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Current Subcriptions", "Index", "Subscriptions")</li>  <!-- Title, File name, desired path) -->
+                    <li>@Html.ActionLink("Home", "Index", "Subscriptions")</li>  <!-- Title, File name, desired path) -->
                     <li>@Html.ActionLink("Analytics", "Analytics", "Subscriptions")</li>
                     <li>@Html.ActionLink("History", "History", "Subscriptions")</li>
                 </ul>
@@ -33,7 +33,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Subscription Manager</p>
+            <p>&copy; @DateTime.Now.Year - Simple CRUD web application to track your subscriptions.</p>
         </footer>
     </div>
 
