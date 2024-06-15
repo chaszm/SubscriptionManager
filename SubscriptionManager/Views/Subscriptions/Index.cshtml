@@ -20,8 +20,16 @@
             <a href="@Url.Action("Create", "Subscriptions")" class="btn btn-primary">Add a Subscription</a>
         </p>
 
-        <table class="table table-striped rounded" style=" background-color: #adb5bd; border: 4px solid black;">
-            <thead>
+
+
+        <!--Calander component and recent subscriptions component -->
+
+
+
+
+        <!-- Add filter buttons  -->
+        <table class="table table-bordered table-dark" style="border: 4px solid black;">
+            <thead style=" background-color: #adb5bd;">
                 <tr>
                     <th scope="col">
                         @Html.DisplayNameFor(model => model.name)
@@ -44,7 +52,7 @@
                     <th scope="col">
                         @Html.DisplayNameFor(model => model.siteLink) <!-- make hyperlink? -->
                     </th>
-                    <th></th>
+                    <th>Actions</th>
                 </tr>
             </thead>
 
@@ -56,8 +64,8 @@
                             <strong>@Html.DisplayFor(modelItem => item.name)</strong>
                         </td>
 
-                        <!-- Add divider between elements?  -->
-                        <!-- dropdown with options  -->
+
+
                         <td>
                             @Html.DisplayFor(modelItem => item.category)
                         </td>
@@ -75,15 +83,22 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.status)
+
+                            <!-- add red/green -->
+
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.siteLink)
+                            <a href="@item.siteLink">@item.siteLink</a>
                         </td>
                         <td>
-                            <!-- ActionLink- (Desired text, action method name) -->
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-default glyphicon glyphicon-list", @aria_hidden = "true" })
+                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-default glyphicon glyphicon-pencil", @aria_hidden = "true" })
+                                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-default glyphicon glyphicon-remove", @aria_hidden = "true" })
+                            </div>
+
+
                         </td>
                     </tr>
                 }
