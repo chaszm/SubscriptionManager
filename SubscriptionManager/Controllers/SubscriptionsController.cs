@@ -20,6 +20,12 @@ namespace SubscriptionManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
+           
+
+
+
+
+
             return View(db.Subscriptions.ToList());
 
 

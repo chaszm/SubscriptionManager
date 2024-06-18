@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<SubscriptionManager.Models.Subscription>
 
-<!-- make table have different pages (footer with 1,2,3,etc)
-    AND make table shorter (change the edit/delete buttons at end)
-    -->
 
-<!-- Add button to sort/filter, icons , etc -->
 
-<!-- add calander component AND recent subscriptions box (with important data) -->
+
 
 @{
     ViewBag.Title = "Current Subscriptions: ";
 }
+
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
 <div class="card rounded">
@@ -22,20 +21,15 @@
 
 
 
-        <!--Calander component and recent subscriptions component -->
-
-
-
-
-        <!-- Add filter buttons  -->
-        <table class="table table-bordered table-dark" style="border: 4px solid black;">
+        <!-- Add filter buttons, AND "show _ per page" pagination-->
+        <table class="table table-bordered table-dark" style="border: 4px solid black; background-color: white;">
             <thead style=" background-color: #adb5bd;">
                 <tr>
                     <th scope="col">
                         @Html.DisplayNameFor(model => model.name)
                     </th>
                     <th scope="col">
-                        @Html.DisplayNameFor(model => model.category) <!-- display subscriptions by category  -->
+                        @Html.DisplayNameFor(model => model.category)
                     </th>
                     <th scope="col">
                         @Html.DisplayNameFor(model => model.amount)
@@ -47,10 +41,10 @@
                         @Html.DisplayNameFor(model => model.startDate)
                     </th>
                     <th scope="col">
-                        @Html.DisplayNameFor(model => model.status) <!-- Red/Green circle icon -->
+                        @Html.DisplayNameFor(model => model.status)
                     </th>
                     <th scope="col">
-                        @Html.DisplayNameFor(model => model.siteLink) <!-- make hyperlink? -->
+                        @Html.DisplayNameFor(model => model.siteLink)
                     </th>
                     <th>Actions</th>
                 </tr>
@@ -82,9 +76,17 @@
                             @Html.DisplayFor(modelItem => item.startDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.status)
 
-                            <!-- add red/green -->
+
+                            @if (item.status == "Active")
+                            {
+                                <span style="height: 10px; width: 10px; border-radius: 50%; display: inline-block; background-color: green;"></span>
+                            }
+                            else if (item.status == "Cancelled")
+                            {
+                                <span style="height: 10px; width: 10px; border-radius: 50%; display:inline-block; background-color: red; "></span>
+                            }
+                            @Html.DisplayFor(modelItem => item.status)
 
                         </td>
                         <td>
@@ -94,7 +96,7 @@
 
                             <div class="btn-group" role="group" aria-label="...">
                                 @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-default glyphicon glyphicon-list", @aria_hidden = "true" })
-                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-default glyphicon glyphicon-pencil", @aria_hidden = "true" })
+                                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-default glyphicon glyphicon-pencil", @aria_hidden = "true" })
                                 @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-default glyphicon glyphicon-remove", @aria_hidden = "true" })
                             </div>
 
@@ -108,9 +110,98 @@
 
     </div>
 
+    <div class="row" style="background-color: white">
+        <!-- Revenue Card -->
+        <div class="col-xxl-6 col-md-6">
+            <div class="card info-card revenue-card">
+                <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                            <h6>Filter</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Today</a></li>
+                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">Amount Spent <span>| This Month</span></h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>$3,264</h6>
+                            <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="barChart"></div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(document.querySelector("#barChart"), {
+                        series: [{
+                            data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+                        }],
+                        chart: {
+                            type: 'bar',
+                            height: 350
+                        },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: 4,
+                                horizontal: true,
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        xaxis: {
+                            categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
+                                'United States', 'China', 'Germany'
+                            ],
+                        }
+                    }).render();
+                });
+            </script>
+           
+        </div>
+
+
+        <!-- Donut Chart Card - add a gap  -->
+        <div class="col-xxl-6 col-md-6" style=background-color: white">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Spending by Category</h5>
+                    <div id="donutChart"></div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            new ApexCharts(document.querySelector("#donutChart"), {
+                                series: [44, 55, 13, 43, 22],
+                                chart: {
+                                    height: 350,
+                                    type: 'donut',
+                                    toolbar: {
+                                        show: true
+                                    }
+                                },
+                                labels: ['Entertainment', 'Team B', 'Team C', 'Team D', 'Team E'],
+                            }).render();
+                        });
+                    </script>
+                </div>
+            </div>
+        </div><!-- End Donut Chart Card -->
+    </div>
+
+    <!-- add "Recently added subscriptions" -->
+
+
 </div>
-
-
 
 
 
