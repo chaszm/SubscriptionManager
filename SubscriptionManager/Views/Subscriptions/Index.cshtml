@@ -13,8 +13,102 @@
 
 
 <div class="card rounded">
+    <br />
+    <div class="row" style="background-color: white; border-radius: 15px;">
+        <!-- Revenue Card -->
+        <div class="col-xxl-6 col-md-6">
+            <div class="card info-card revenue-card">
+                <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                            <h6>Filter</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Today</a></li>
+                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 2rem; font: bold">Amount Spent <span>| This Year</span></h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6 style="font: bold">$@ViewBag.totalAmount </h6>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="barChart"></div>
+
+            <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                new ApexCharts(document.querySelector("#barChart"), {
+                    series: [{
+                        data: [@ViewBag.JanuaryAmount, @ViewBag.FebruaryAmount, @ViewBag.MarchAmount, @ViewBag.AprilAmount,@ViewBag.MayAmount, @ViewBag.JuneAmount, @ViewBag.JulyAmount, @ViewBag.AugustAmount, @ViewBag.SeptemberAmount, @ViewBag.OctoberAmount,@ViewBag.NovemberAmount,@ViewBag.DecemberAmount]
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350,
+                        toolbar: {
+                            show: false
+                        }
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 4,
+                            horizontal: true,
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    xaxis: {
+                        categories: [
+                            'January', 'February', 'March', 'April', 'May', 'June',
+                            'July', 'August', 'September', 'October', 'November', 'December'
+                        ],
+                    }
+                }).render();
+            });
+            </script>
+
+        </div>
+
+        <div class="col-xxl-6 col-md-6" style=background-color: white">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 2rem; font: bold">Spending by Category</h5>
+                    <div id="donutChart"></div>
+                    <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        new ApexCharts(document.querySelector("#donutChart"), {
+                            series: [@ViewBag.EntertainmentAmount, @ViewBag.FoodAmount, @ViewBag.HealthAmount, @ViewBag.TechAmount, @ViewBag.OtherAmount],
+                            chart: {
+                                height: 350,
+                                type: 'donut',
+                                toolbar: {
+                                    show: true
+                                }
+                            },
+                            labels: ['Entertainment', 'Food Delivery/Meal Kits', 'Health and Fitness', 'Technologies', 'Other'],
+                        }).render();
+                    });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="card-body">
-        <h2 class="card-title" style="font-size: 2rem; ">Current Subscriptions</h2>
+        <h2 class="card-title" style="font-size: 2rem; font: bold">Current Subscriptions</h2>
         <p class="text-end">
             <a href="@Url.Action("Create", "Subscriptions")" class="btn btn-primary">Add a Subscription</a>
         </p>
@@ -110,95 +204,6 @@
 
     </div>
 
-    <div class="row" style="background-color: white">
-        <!-- Revenue Card -->
-        <div class="col-xxl-6 col-md-6">
-            <div class="card info-card revenue-card">
-                <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <li class="dropdown-header text-start">
-                            <h6>Filter</h6>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Year</a></li>
-                    </ul>
-                </div>
-
-                <div class="card-body">
-                    <h5 class="card-title">Amount Spent <span>| This Month</span></h5>
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                            <i class="bi bi-currency-dollar"></i>
-                        </div>
-                        <div class="ps-3">
-                            <h6>$3,264</h6>
-                            <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="barChart"></div>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                    new ApexCharts(document.querySelector("#barChart"), {
-                        series: [{
-                            data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
-                        }],
-                        chart: {
-                            type: 'bar',
-                            height: 350
-                        },
-                        plotOptions: {
-                            bar: {
-                                borderRadius: 4,
-                                horizontal: true,
-                            }
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        xaxis: {
-                            categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
-                                'United States', 'China', 'Germany'
-                            ],
-                        }
-                    }).render();
-                });
-            </script>
-           
-        </div>
-
-
-        <!-- Donut Chart Card - add a gap  -->
-        <div class="col-xxl-6 col-md-6" style=background-color: white">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Spending by Category</h5>
-                    <div id="donutChart"></div>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                            new ApexCharts(document.querySelector("#donutChart"), {
-                                series: [44, 55, 13, 43, 22],
-                                chart: {
-                                    height: 350,
-                                    type: 'donut',
-                                    toolbar: {
-                                        show: true
-                                    }
-                                },
-                                labels: ['Entertainment', 'Team B', 'Team C', 'Team D', 'Team E'],
-                            }).render();
-                        });
-                    </script>
-                </div>
-            </div>
-        </div><!-- End Donut Chart Card -->
-    </div>
-
-    <!-- add "Recently added subscriptions" -->
 
 
 </div>

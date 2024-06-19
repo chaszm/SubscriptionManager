@@ -20,13 +20,55 @@ namespace SubscriptionManager.Controllers
         [Authorize]
         public ActionResult Index()
         {
-           
+
+        var subscriptions = db.Subscriptions.ToList();
+
+
+         var monthlyAmounts = subscriptions
+         .GroupBy(s => s.startDate.Month)
+         .Select(g => new
+         {
+             Month = g.Key,
+             TotalAmount = g.Sum(s => s.amount)
+         })
+         .ToDictionary(x => x.Month, x => x.TotalAmount);
+
+            // Store monthly amounts
+            ViewBag.JanuaryAmount = monthlyAmounts.ContainsKey(1) ? monthlyAmounts[1] : 0;
+            ViewBag.FebruaryAmount = monthlyAmounts.ContainsKey(2) ? monthlyAmounts[2] : 0;
+            ViewBag.MarchAmount = monthlyAmounts.ContainsKey(3) ? monthlyAmounts[3] : 0;
+            ViewBag.AprilAmount = monthlyAmounts.ContainsKey(4) ? monthlyAmounts[4] : 0;
+            ViewBag.MayAmount = monthlyAmounts.ContainsKey(5) ? monthlyAmounts[5] : 0;
+            ViewBag.JuneAmount = monthlyAmounts.ContainsKey(6) ? monthlyAmounts[6] : 0;
+            ViewBag.JulyAmount = monthlyAmounts.ContainsKey(7) ? monthlyAmounts[7] : 0;
+            ViewBag.AugustAmount = monthlyAmounts.ContainsKey(8) ? monthlyAmounts[8] : 0;
+            ViewBag.SeptemberAmount = monthlyAmounts.ContainsKey(9) ? monthlyAmounts[9] : 0;
+            ViewBag.OctoberAmount = monthlyAmounts.ContainsKey(10) ? monthlyAmounts[10] : 0;
+            ViewBag.NovemberAmount = monthlyAmounts.ContainsKey(11) ? monthlyAmounts[11] : 0;
+            ViewBag.DecemberAmount = monthlyAmounts.ContainsKey(12) ? monthlyAmounts[12] : 0;
+
+            var totalAmount = subscriptions.Sum(s => s.amount); //total monthly
+            ViewBag.TotalAmount = totalAmount;
 
 
 
+            var categoryAmounts = subscriptions
+                .GroupBy(s => s.category)
+                .Select(g => new
+                {
+                    Category = g.Key,
+                    total = g.Sum(s => s.amount)
+                })
+                .ToDictionary(x => x.Category, x => x.total);
+
+            ViewBag.EntertainmentAmount = categoryAmounts.ContainsKey("Entertainment") ? categoryAmounts["Entertainment"] : 0;
+            ViewBag.FoodAmount = categoryAmounts.ContainsKey("Food Delivery/Meal Kits") ? categoryAmounts["Food Delivery/Meal Kits"] : 0;
+            ViewBag.HealthAmount = categoryAmounts.ContainsKey("Health and Fitness") ? categoryAmounts["Health and Fitness"] : 0;
+            ViewBag.TechAmount = categoryAmounts.ContainsKey("Technologies") ? categoryAmounts["Technologies"] : 0;
+            ViewBag.OtherAmount = categoryAmounts.ContainsKey("Other") ? categoryAmounts["Other"] : 0;
 
 
-            return View(db.Subscriptions.ToList());
+            return View(subscriptions);
 
 
         }

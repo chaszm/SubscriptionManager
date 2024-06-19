@@ -47,6 +47,7 @@ namespace SubscriptionManager.Models
         [Display(Name = "Link")]
         public string siteLink { get; set; }
 
+        
 
         public Subscription()
         {
