@@ -18,11 +18,17 @@ namespace SubscriptionManager.Controllers
         // GET: Subscriptions
 
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(string sortField, string currentSortField, string currentSortOrder, string SearchString)
         {
 
         var subscriptions = db.Subscriptions.ToList();
 
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                string lowerCaseSearchString = SearchString.ToLower();
+                subscriptions = subscriptions.Where(s => s.name.ToLower().Contains(lowerCaseSearchString)).ToList();
+            }
 
          var monthlyAmounts = subscriptions
          .GroupBy(s => s.startDate.Month)
@@ -48,10 +54,12 @@ namespace SubscriptionManager.Controllers
             ViewBag.DecemberAmount = monthlyAmounts.ContainsKey(12) ? monthlyAmounts[12] : 0;
 
             var totalAmount = subscriptions.Sum(s => s.amount); //total monthly
-            ViewBag.TotalAmount = totalAmount;
+            var formatted = String.Format("{0:0.00}", totalAmount);
+            ViewBag.TotalAmount = formatted;
 
 
 
+            //Totals by Category
             var categoryAmounts = subscriptions
                 .GroupBy(s => s.category)
                 .Select(g => new
@@ -68,10 +76,50 @@ namespace SubscriptionManager.Controllers
             ViewBag.OtherAmount = categoryAmounts.ContainsKey("Other") ? categoryAmounts["Other"] : 0;
 
 
-            return View(subscriptions);
+
+
+            return View(this.sortData(subscriptions, sortField,currentSortField,currentSortOrder));
 
 
         }
+
+        private List<Subscription> sortData(List<Subscription> subscriptions,string sortField, string currentSortField, string currentSortOrder)
+        {
+            if (string.IsNullOrEmpty(sortField))
+            {
+                ViewBag.SortField = "name";
+                ViewBag.SortOrder = "Asc";
+            }
+            else
+            {
+                if (currentSortField == sortField)
+                {
+                    ViewBag.SortOrder = currentSortOrder == "Asc" ? "Desc" : "Asc";
+                }
+                else
+                {
+                    ViewBag.SortOrder = "Asc";
+                }
+                ViewBag.SortField = sortField;
+            }
+
+            var propertyInfo = typeof(Subscription).GetProperty(ViewBag.SortField);
+            if (ViewBag.SortOrder == "Asc")
+            {
+                subscriptions = subscriptions.OrderBy(s => propertyInfo.GetValue(s, null)).ToList();
+            }
+            else
+            {
+                subscriptions = subscriptions.OrderByDescending(s => propertyInfo.GetValue(s, null)).ToList();
+            }
+            return subscriptions;
+
+
+
+
+        }
+
+
 
         [Authorize]
         public ActionResult Analytics()

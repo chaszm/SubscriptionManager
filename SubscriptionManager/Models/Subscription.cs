@@ -39,7 +39,7 @@ namespace SubscriptionManager.Models
         public IEnumerable<SelectListItem> lengthOptions { get; set; }
 
 
-        [Display(Name = "Current Status")]
+        [Display(Name = "Status")]
         public string status { get; set; }
 
         public IEnumerable<SelectListItem> statusOptions { get; set; }
