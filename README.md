@@ -1,19 +1,21 @@
-#Intro
-CRUD web application using ASP.NET Core and C# to manage subscriptions.
+Subscription Manager
 
-#Key Features
+Subscription Manager is a web application built with C# and ASP.NET Core that allows users to manage their subscriptions efficiently. The application provides CRUD (Create, Read, Update, Delete) functionality for subscriptions, along with advanced features like filtering, searching, and data visualization to help users keep track of their spending.
+Features
 
-    Users can create, view, and delete subscriptions, each displayed with relevant details.
-    Provides analytical tools to track and manipulate spending information related to subscriptions.
-    Subscription information is editable by the user and can be manipulated.
-    Users can navigate past and cancelled subscriptions as well as search and filter through current subscriptions.
+    CRUD Functionality: Add, view, edit, and delete subscriptions.
+    Filtering and Searching: Easily filter and search through your subscriptions table.
+    Data Visualization: Visualize your spending with integrated charts and graphs.
+    User Account Management: Change your password and email with ease.
+    Responsive Design: Built with Bootstrap for a mobile-friendly experience.
 
-Technologies Used:
-.Net CORE
-Razor 
-MS SQL Server
-Bootstrap
-JQuery
-Ajax
+Technologies Used
+
+    ASP.NET Core
+    Bootstrap
+    Razor
+    jQuery
+    Ajax
+
 
  
